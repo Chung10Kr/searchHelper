@@ -19,7 +19,7 @@ ex) TRANS-13
 
 # Commit Message
 ```
- [date][workerName][Branch Name]
+ [date][workerName][issue Number]
 
  -message
 
