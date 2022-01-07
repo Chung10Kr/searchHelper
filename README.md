@@ -1,6 +1,14 @@
 # Branslator
 
 translation chrome extension
+# started
+[참고문서](https://developer.chrome.com/docs/extensions/mv3/getstarted/)
+
+# setting
+
+1. 크롬 chrome://extensions 이동
+2. 개발자모드 활성화
+3. Load unpacked 클릭하여 translator load
 
 # Branch strategy
 
