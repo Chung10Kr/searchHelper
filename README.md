@@ -1,3 +1,3 @@
-# Branslator
+# Search Helper
 
-translation chrome extension
+Search Helper chrome extension
