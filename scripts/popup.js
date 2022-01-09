@@ -1,25 +1,31 @@
-// Initialize button with user's preferred color
-let changeColor = document.getElementById("changeColor");
 
-chrome.storage.sync.get("color", ({ color }) => {
-  changeColor.style.backgroundColor = color;
-});
+let searchTxt = document.getElementById("searchTxt");
+let searchBtn = document.getElementById("searchBtn");
 
 
-// When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        function: setPageBackgroundColor,
-    });
-});
 
-// The body of this function will be executed as a content script inside the
-// current page
-function setPageBackgroundColor() {
-    chrome.storage.sync.get("color", ({ color }) => {
-        document.body.style.backgroundColor = color;
-    });
-}
+document.getElementById('searchByGoogle').onclick = () => { 
+    chrome.tabs.create({ url: `https://www.google.com/search?q=${searchTxt.value}`, active: true }); 
+};
+document.getElementById('searchBygitHub').onclick = () => { 
+    chrome.tabs.create({ url: `https://github.com/search?q=${searchTxt.value}`, active: true }); 
+};
+
+document.getElementById('searchByYoutube').onclick = () => {
+	let l = (searchTxt.value === '') ? 'https://www.youtube.com' : `https://www.youtube.com//results?search_query=${searchTxt.value}`;
+	chrome.tabs.create({ url: l, active: true });
+};
+
+
+document.getElementById('searchByNaver').onclick = () => {
+	let l = (searchTxt.value === '') ? 'https://www.naver.com' : `https://search.naver.com/search.naver?query=${searchTxt.value}`;
+	chrome.tabs.create({ url: l, active: true });
+};
+
+document.getElementById('searchByDaum').onclick = () => {
+	let l = (searchTxt.value === '') ? 'https://www.daum.com' : `https://search.daum.net/search?w=tot&q=${searchTxt.value}`;
+	chrome.tabs.create({ url: l, active: true });
+};
+searchTxt.focus();
+
