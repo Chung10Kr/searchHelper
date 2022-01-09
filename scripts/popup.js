@@ -1,15 +1,19 @@
-class popupJs{
-    constructor(){
+class popupJs
+{
+    constructor()
+    {
         this.initControl();
         this.initEvent();
     };
 
-    initControl(){
+    initControl()
+    {
         this.searchTxt = document.getElementById("searchTxt");
         this.searchBtn = document.getElementById("searchBtn");
         this.searchTxt.focus();
     }
-    initEvent(){
+    initEvent()
+    {
         let self = this;
         document.getElementById('searchByGoogle').onclick = () => { 
             let l = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
@@ -24,7 +28,6 @@ class popupJs{
             let l = (self.searchTxt.value === '') ? 'https://www.youtube.com' : `https://www.youtube.com//results?search_query=${self.searchTxt.value}`;
             chrome.tabs.create({ url: l, active: true });
         };
-        
         
         document.getElementById('searchByNaver').onclick = () => {
             let l = (self.searchTxt.value === '') ? 'https://www.naver.com' : `https://search.naver.com/search.naver?query=${self.searchTxt.value}`;
@@ -53,3 +56,4 @@ class popupJs{
 $(function(){
     new popupJs();
 });
+
