@@ -1,13 +1,13 @@
 {
-    "name": "Getting Started Example",
-    "description": "Build an Extension!",
+    "name": "Search Helper",
+    "description": "Search Helper",
     "version": "1.0",
     "manifest_version": 3,
     "background": {
         "service_worker": "scripts/background.js"
     },
-    "options_page": "view/options.html",
-    "permissions": ["storage","activeTab", "scripting"],
+    "permissions": ["storage","activeTab"],
+
     "action": {
         "default_popup": "view/popup.html",
         "default_icon": {
