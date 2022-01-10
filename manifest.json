@@ -5,25 +5,30 @@
     "manifest_version": 3,
     "background": {
         "service_worker": "scripts/background.js",
-        "script": "scripts/jquery-1.11.3.min.js"
-        
+        "script": "resource/js/jquery-1.12.4.js"
     },
+
     "options_page": "view/options.html",
     "permissions": ["storage","activeTab"],
 
     "action": {
         "default_popup": "view/popup.html",
         "default_icon": {
-          "16": "resource/images/get_started16.png",
-          "32": "resource/images/get_started32.png",
-          "48": "resource/images/get_started48.png",
-          "128": "resource/images/get_started128.png"
+          "16": "resource/images/icon.png",
+          "32": "resource/images/icon.png",
+          "48": "resource/images/icon.png",
+          "128": "resource/images/icon.png"
         }
     },
     "icons": {
-        "16":  "resource/images/get_started16.png",
-        "32":  "resource/images/get_started32.png",
-        "48":  "resource/images/get_started48.png",
-        "128": "resource/images/get_started128.png"
-    }
+        "16":  "resource/images/icon.png",
+        "32":  "resource/images/icon.png",
+        "48":  "resource/images/icon.png",
+        "128": "resource/images/icon.png"
+    },
+    "sandbox":[
+        "view/options.html",
+        "view/setting.html",
+        "view/history.html"
+    ]
 }
