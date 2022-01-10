@@ -8,15 +8,9 @@ class settingJs
 
     initControl()
     {
-        alert("setting");
+        console.log("Setting")
     }
     initEvent()
     {
     }
-}
-
-
-$(function(){
-    new settingJs();
-});
-
+};

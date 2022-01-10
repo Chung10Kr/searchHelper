@@ -15,22 +15,18 @@ class optionsJs
         this.initMenu = "menu_1";
         this.menuExpanded = false;
         this.renderMenu();
-        $("#container").load(`${this.menuList[this.initMenu]["html"]}.html`);
+        this.ajaxHtml( `${this.menuList[this.initMenu]["html"]}`  )
+
     }
     initEvent()
     {
         let self = this;
-        $(".menuDoor").on("click",function(e){
-            let targetHtml = $(this).attr("data-link");
-            $("#container").load(`${targetHtml}.html`)
+        $(".menuDoor").click(function(e){
+            let targetKey = $(this).attr("data-key");
+            self.ajaxHtml( `${self.menuList[targetKey]["html"]}`  );
         });
-        if (navigator.userAgent.indexOf('iPhone')!=-1){
-            addEventListener("load",function(){
-                setTimeout(self.hideURLbar,0);
-            },false);
-        };
 
-        $(window).load(function(){
+        $(window).on('load',function(){
             self.menuExpanded = false;
             $('.menu-inner').on('click', function(){
                 if( self.menuExpanded == false){
@@ -43,17 +39,31 @@ class optionsJs
             });
         });
     }
-
-    hideURLbar()
+    ajaxHtml(sHtml)
     {
-	    window.scrollTo(0,1);
-    };
+        let self = this;
+        $.ajax({ 
+            type: 'post' , 
+            url: `${sHtml}.html`, 
+            dataType : 'html' , 
+            success: function(data) {
+                $("#container").html(data);
+                self.setJs(sHtml);
+                
+            } 
+        });
+    }
+    setJs(sHtml)
+    {
+        if( sHtml == 'history' ) new historyJs();
+        if( sHtml == 'setting' ) new settingJs();
+    }
     renderMenu()
     {
         let self = this;
         let str = Object.keys(this.menuList).map(function(key){
             let data = self.menuList[key];
-            return `<li><a class="menuDoor" data-link="${data.html}" style="cursor: pointer;" >${data.name}</a></li>`;
+            return `<li><a class="menuDoor" data-key="${key}" style="cursor: pointer;" >${data.name}</a></li>`;
         }).join("");
         $(".m_ul").append(str);
     };

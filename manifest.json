@@ -5,7 +5,7 @@
     "manifest_version": 3,
     "background": {
         "service_worker": "scripts/background.js",
-        "script": "resource/js/jquery-3.6.0.min.js"
+        "script": "resource/js/jquery-1.12.4.js"
     },
 
     "options_page": "view/options.html",
@@ -31,5 +31,4 @@
         "view/setting.html",
         "view/history.html"
     ]
-
 }

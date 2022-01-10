@@ -8,15 +8,10 @@ class historyJs
 
     initControl()
     {
-        alert("^^");
+        console.log("History")
     }
     initEvent()
     {
     }
-}
-
-
-$(function(){
-    new historyJs();
-});
+};
 
