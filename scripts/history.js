@@ -6,12 +6,16 @@ class historyJs
         this.initEvent();
     };
 
-    initControl()
+    async initControl()
     {
-        console.log("History")
+        let history = await chrome.storage.sync.get("history");
+        history = history["history"] || [];
+        console.log(history)
+
     }
     initEvent()
     {
+        
     }
 };
 
