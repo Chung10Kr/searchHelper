@@ -72,7 +72,7 @@ class popupJs
         let create_date = this.now();
         let history = await chrome.storage.sync.get("history");
         let tmpObj = JSON.stringify(history) == "{}" ? {} : history['history'];
-        let key = this.uuidv4();
+        let key = this.makeKey();
 
         tmpObj[key] = {
             "url" : l,
@@ -90,15 +90,12 @@ class popupJs
         var year = today.getFullYear();
         var month = ('0' + (today.getMonth() + 1)).slice(-2);
         var day = ('0' + today.getDate()).slice(-2);
-        
+
         return `${year}-${month}-${day}`;
     }
-    uuidv4() 
+    makeKey() 
     {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+        return new Date();
     }
     
 }

@@ -20,8 +20,6 @@ class historyJs
         });
         $("#initHistory").click(async function(e){
             await self.initHistory();
-            await self.getHistory();
-            self.renderHistory();
         })
     }
     async getHistory()
@@ -32,13 +30,13 @@ class historyJs
     }
     renderHistory()
     {
+        
         let self = this;
         let history = this.history;
-        $("#historyList").empty();
+
         for( let key in history ){
             let data = history[key];
             let str = `<tr>
-                        <td><input type="checkbox"></td>
                         <td>${data['create_date']}</td>
                         <td class="move" data-key="${data['url']}" style="cursor: pointer;">${data['searchType']} - >${data['txt']}</a></td>
                        </tr>`;
@@ -48,6 +46,7 @@ class historyJs
     async initHistory()
     {
          await chrome.storage.sync.clear();
+         $("#historyList").empty();
     }
 };
 
