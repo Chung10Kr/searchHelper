@@ -8,7 +8,7 @@ class popupJs
 
     initControl()
     {
-
+        this.maxHistory = 500;
         this.searchTxt = document.getElementById("searchTxt");
         this.searchBtn = document.getElementById("searchBtn");
         this.searchTxt.focus();
@@ -50,7 +50,6 @@ class popupJs
             self.search();
         };
         document.getElementById('searchTxt').onkeyup = (e) => {
-            //Enter
             if(e.keyCode == 13){
                 self.url = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
                 self.searchType = "google";
@@ -71,17 +70,19 @@ class popupJs
         let searchType= this.searchType;
         let create_date = this.now();
         let history = await chrome.storage.sync.get("history");
-        let tmpObj = JSON.stringify(history) == "{}" ? {} : history['history'];
-        let key = this.makeKey();
+        
+        let tmpArr = JSON.stringify(history) == "{}" ? [] : history['history'];
 
-        tmpObj[key] = {
+        let tmpObj = {
             "url" : l,
             "txt" : txt,
             "searchType" : searchType,
             "create_date" : create_date
         };
+        tmpArr.push(tmpObj);
+        if(tmpArr.length > this.maxHistory) tmpArr.shift();
 
-        await chrome.storage.sync.set( {"history":tmpObj} );
+        await chrome.storage.sync.set( {"history":tmpArr} );
     }
     now()
     {
@@ -93,11 +94,6 @@ class popupJs
 
         return `${year}-${month}-${day}`;
     }
-    makeKey() 
-    {
-        return new Date();
-    }
-    
 }
 
 

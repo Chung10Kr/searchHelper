@@ -20,6 +20,10 @@ class historyJs
         });
         $("#initHistory").click(async function(e){
             await self.initHistory();
+        });
+        $("#searchHistory").keyup(function(e){
+            let txt = $(this).val();
+            !txt ? self.renderHistory() : self.searchHistory( txt );
         })
     }
     async getHistory()
@@ -30,18 +34,31 @@ class historyJs
     }
     renderHistory()
     {
-        
-        let self = this;
+        $("#historyList").empty();
         let history = this.history;
-
-        for( let key in history ){
-            let data = history[key];
+        history.reverse();
+        history.map((data)=>{
             let str = `<tr>
                         <td>${data['create_date']}</td>
                         <td class="move" data-key="${data['url']}" style="cursor: pointer;">${data['searchType']} - >${data['txt']}</a></td>
                        </tr>`;
             $("#historyList").append(str);
-        };
+        });
+    }
+    searchHistory(txt)
+    {
+        $("#historyList").empty();
+        let history = this.history;
+        
+        history.reverse();
+        history.map((data)=>{
+            if( data['txt'].indexOf(txt) == -1 ) return false;
+            let str = `<tr>
+                        <td>${data['create_date']}</td>
+                        <td class="move" data-key="${data['url']}" style="cursor: pointer;">${data['searchType']} - >${data['txt']}</a></td>
+                       </tr>`;
+            $("#historyList").append(str);
+        });
     }
     async initHistory()
     {
