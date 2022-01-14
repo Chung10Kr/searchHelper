@@ -15,8 +15,8 @@ body, html {
 	transition: 1000ms all cubic-bezier(0.19, 1, 0.22, 1);
 	transform: translateX(-100%);
 	left: 3%;
-	border-top-right-radius: 20px;
-	border-bottom-right-radius: 20px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
 	z-index: 99999;
 }
 
@@ -43,7 +43,7 @@ padding:5px 10px;
 text-align: left;
 }
 .m_ul > li > a {
-/* font-size: 1.4vh; */
+font-size: 1.2em;
 color: #fff;
 font-family: sans-serif;
 text-decoration: none;
@@ -54,6 +54,8 @@ width: 95% !important;
 
 /*--------------Layout End--------------*/
 
+
+
 .content{
 	position: relative;
 	display: inline-block;
@@ -62,12 +64,51 @@ width: 95% !important;
 	height: 100%;
 	border-radius: 10px;
 	margin-top: 5%;
+	color: #dcdcdc;
 }
 
-#searchHistory{
-	margin-top: 10px;
+#historyHeader{
+	border-bottom: 1px solid #dcdcdc;
+	width: 100%;
+	text-align: left;
 }
+#historyList{
+	margin: 8px 0px 0px 10px;
+	width: 100%;
+	text-align: left;
+}
+.historyItem{
+	margin: 15px 0px 0px 0px;
+	height: 16px;
+}
+.historyItem img{
+	height: 16px;
+	width: 16px;
+}
+#searchHistory{
+	width: 80%;
+	margin: 8px 0px 10px 10px;
+	background-image: url("../images/search.png");
+	background-repeat: no-repeat;
+	background-size: 30px;
+	background-position: 5px center;
+	background-color: dcdcdc;
+	border: 1px solid #2e3238;
+	padding: 12px 20px 12px 40px;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 3px;
+}
+
 #initHistory{
-	float: right;
-	margin: 10px 10px 0px 0px;
+	width: 17%;
+	margin: 8px 10px 10px 0px;
+	padding: 7px 7px;
+	color:#288CFF;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	background-color: #323232;
+	letter-spacing:-1px; 
+	display:inline-block; /*inlin-block삭제하면 높이안먹음*/ 
+	cursor: pointer;
 }

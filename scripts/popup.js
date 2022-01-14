@@ -92,7 +92,11 @@ class popupJs
         var month = ('0' + (today.getMonth() + 1)).slice(-2);
         var day = ('0' + today.getDate()).slice(-2);
 
-        return `${year}-${month}-${day}`;
+        let hours = today.getHours(); // 시
+        let minutes = today.getMinutes();  // 분
+        let seconds = today.getSeconds();  // 초
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
 }
 
