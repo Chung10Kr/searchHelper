@@ -7,10 +7,7 @@ class popupJs
     };
 
     initControl()
-    {
-        this.engeneType =  chrome.storage.sync.get(['searchEngene'], function(result) {
-            result.searchEngene;
-        });;
+    {   
         this.maxHistory = 500;
         this.searchTxt = document.getElementById("searchTxt");
         this.searchBtn = document.getElementById("searchBtn");
@@ -52,23 +49,27 @@ class popupJs
             self.searchType = "yahoo";
             self.search();
         };
+
         document.getElementById('goOption').onclick = () => {
             location.href = '../view/options.html';
         };
+
         document.getElementById('searchTxt').onkeyup = (e) => {
             if(e.keyCode == 13){
-                self.url = (self.searchTxt.value === '') ? self.engeneType : self.engeneType + `/search?q=${self.searchTxt.value}`;
-                self.searchType = "google";
-                self.search();
+                let engeneType = chrome.storage.sync.get(function(data){
+                    if(data.searchEngene == undefined){
+                        self.url = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
+                        self.searchType = "google";
+                    }else{
+                        self.url = (self.searchTxt.value === '') ? data.searchEngene : data.searchUrl + `${self.searchTxt.value}`;
+                        self.searchType = data.searchName;
+                    }
+                    self.search();
+                });
             };
         };
     }
-    async search()
-    {
-        let l = this.url;
-        await this.log();
-        chrome.tabs.create({ url: l, active: true }); 
-    }
+
     async log()
     {
         let l = this.url;
@@ -90,6 +91,18 @@ class popupJs
 
         await chrome.storage.sync.set( {"history":tmpArr} );
     }
+
+    async search()
+    {   
+        let l = this.url;
+        let logchk = await chrome.storage.sync.get("logRecord");
+        let chk = JSON.stringify(logchk) == "{}" ? [] : logchk['logRecord'];
+        if(chk != ""){
+            await this.log();    
+        }
+        chrome.tabs.create({ url: l, active: true });
+    }
+
     now()
     {
         var today = new Date();
@@ -105,7 +118,6 @@ class popupJs
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
 }
-
 
 $(function(){
     new popupJs();

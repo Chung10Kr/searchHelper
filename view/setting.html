@@ -1,15 +1,18 @@
 <div>
-  설정관리
-  /*검색 엔진 Default 및 설정 할수 있게 함*/
-  <ul class="m_ul">
-    <select id="settingSearchEngene">
-      <option value="https://google.com">구글</option>
-      <option value="https://www.naver.com">네이버</option>
-      <option value="https://search.yahoo.com">야후</option>
-      <option value="https://www.youtube.com">유튜브</option>
-      <option value="https://github.com">깃허브</option>
-      <option value="https://www.daum.com">다음</option>
-  </select>
-  </ul>
-  /*검색포털 순서 선택*/
+  <div>
+    <ul class="m_ul">
+      <select id="settingSearchEngene">
+        <option value="https://google.com" value2="https://www.google.com/search?q=" value3="google">google</option>
+        <option value="https://www.naver.com" value2="https://search.naver.com/search.naver?query=" value3="naver">naver</option>
+        <option value="https://search.yahoo.com" value2="https://search.yahoo.com/search?p=" value3="yahoo">yahoo</option>
+        <option value="https://www.youtube.com" value2="https://www.youtube.com//results?search_query=" value3="youtube">youtube</option>
+        <option value="https://github.com" value2="https://github.com/search?q=" value3="github">github</option>
+        <option value="https://www.daum.com" value2="https://search.daum.net/search?w=tot&q=" value3="daum">daum</option>
+   </select>
+   </ul>
+  </div>
+  <div>
+    <label><input class="hisSetting" name="settingEnroll" type="radio" value="Y" />이력 남기기</label>
+    <label><input class="hisSetting" name="settingEnroll" type="radio" value="" />이력 안남기기</label>
+  </div>
 </div>
