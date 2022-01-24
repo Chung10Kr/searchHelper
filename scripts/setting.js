@@ -10,6 +10,8 @@ class settingJs
     {
       this.getSettingOption();
       this.sSE = document.getElementById("settingSearchEngene");
+      this.switch = document.getElementById("switch");
+      
       this.sE  = document.getElementsByName("settingEnroll");
     }
 
@@ -19,7 +21,9 @@ class settingJs
         this.sSE.onchange = () => { 
             this.setting();
         };
-
+        this.switch.onchange =() =>{
+            
+        }
         for(var i = 0; i < this.sE.length; i++){
             this.sE[i].onclick = () => {
                 this.settingHis();
@@ -29,7 +33,7 @@ class settingJs
 
     getSettingOption(){
         
-        chrome.storage.sync.get(['searchEngene'], function(resuldatat) {
+        chrome.storage.sync.get(['searchEngene'], function(data) {
             let type = data.searchEngene;
             if(type != undefined){
                 $("#settingSearchEngene").val(type).prop("selected",true);
@@ -37,6 +41,7 @@ class settingJs
         });
         
         chrome.storage.sync.get(['logRecord'], function(data) {
+            self.his = data.logRecord;
             let his = data.logRecord;
             if(his != undefined){
                 $(":radio[name='settingEnroll'][value='"+his+"']").attr('checked',his);

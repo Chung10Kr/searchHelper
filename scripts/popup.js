@@ -58,12 +58,12 @@ class popupJs
         document.getElementById('searchTxt').onkeyup = (e) => {
             if(e.keyCode == 13){
                 chrome.storage.sync.get(function(data){
-                    if(data.searchEngene == undefined){
-                        self.url = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
-                        self.searchType = "google";
-                    }else{
+                    if(data.searchEngene == 'Y' ){
                         self.url = (self.searchTxt.value === '') ? `${data.searchEngene}` : `${data.searchUrl}${self.searchTxt.value}`;
                         self.searchType = data.searchName;
+                    }else{
+                        self.url = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
+                        self.searchType = "google";
                     }
                     self.search();
                 });
