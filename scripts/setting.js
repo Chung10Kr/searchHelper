@@ -9,58 +9,55 @@ class settingJs
     initControl()
     {
       this.getSettingOption();
-      this.sSE = document.getElementById("settingSearchEngene");
-      this.switch = document.getElementById("switch");
-      
-      this.sE  = document.getElementsByName("settingEnroll");
+      this.defaultEngene = document.getElementById("defaultEngene");
+      this.logStore = document.getElementById("switch");
     }
 
     initEvent()
     {
         let self = this;
-        this.sSE.onchange = () => { 
-            this.setting();
+        this.defaultEngene.onchange = () => { 
+            self.setDefault();
         };
-        this.switch.onchange =() =>{
-            
-        }
-        for(var i = 0; i < this.sE.length; i++){
-            this.sE[i].onclick = () => {
-                this.settingHis();
-            };
-        }
+
+        this.logStore.onchange =() =>{
+            self.logStore = $("#switch").is(":checked");
+            self.setLogStore();
+        };
     }
 
-    getSettingOption(){
+    async getSettingOption(){
         
-        chrome.storage.sync.get(['searchEngene'], function(data) {
-            let type = data.searchEngene;
+        chrome.storage.sync.get(['defaultEngene'], function(data) {
+            let type = data.defaultEngene;
             if(type != undefined){
-                $("#settingSearchEngene").val(type).prop("selected",true);
+                $("#defaultEngene").val(type).prop("selected",true);
             }
         });
         
-        chrome.storage.sync.get(['logRecord'], function(data) {
-            self.his = data.logRecord;
-            let his = data.logRecord;
-            if(his != undefined){
-                $(":radio[name='settingEnroll'][value='"+his+"']").attr('checked',his);
-            }
+        await chrome.storage.sync.get(['logStore'], function(data) {
+            self.logStore = data.logStore || false;
+
+            if( self.logStore ){
+                $("#switch").attr('checked',true);
+            }else{
+                $("#switch").removeAttr("checked");
+            };
         });
 
     }
 
-    setting()
+    setDefault()
     {
-        let searchEngene  = $("#settingSearchEngene").val();
-        let searchUrl     = $("#settingSearchEngene > option:selected").attr("value2");
-        let searchName    = $("#settingSearchEngene > option:selected").attr("value3");
-        chrome.storage.sync.set({"searchEngene":searchEngene, "searchUrl":searchUrl, "searchName":searchName} );
+        let defaultEngene  = $("#defaultEngene").val();
+        let defaultUrl     = $("#defaultEngene > option:selected").attr("data-url");
+        let defaultType    = $("#defaultEngene > option:selected").attr("data-type");
+        chrome.storage.sync.set({"defaultEngene":defaultEngene, "defaultUrl":defaultUrl, "defaultType":defaultType} );
     }
 
-    settingHis()
+    setLogStore()
     {
-        let logRecord = $(".hisSetting:checked").val();
-        chrome.storage.sync.set({"logRecord":logRecord});
+        let self = this;
+        chrome.storage.sync.set( { "logStore" : self.logStore });
     }
 };

@@ -116,26 +116,6 @@ width: 95% !important;
 
 
 
-
-.radio-toolbar input[type="radio"] {
-	display: none;
-}
-
-.radio-toolbar label {
-	display: inline-block;
-	background-color: #0000CD;
-	border-radius: 5px;
-	padding: 4px 11px;
-	font-family: Arial;
-	font-size: 16px;
-	cursor: pointer;
-}
-  
-.radio-toolbar input[type="radio"]:checked+label {
-	background-color: #FF0000;
-}
-
-.wrapper { position: relative; }
 #switch {
   position: absolute;
   /* hidden */
@@ -186,3 +166,4 @@ width: 95% !important;
 	background: #fff;
 	box-shadow: 1px 2px 3px #00000020;
   }
+
