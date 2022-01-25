@@ -10,7 +10,9 @@ class settingJs
     {
       this.getSettingOption();
       this.sSE = document.getElementById("settingSearchEngene");
-      this.sE = document.getElementsByName("settingEnroll");
+      this.switch = document.getElementById("switch");
+      
+      this.sE  = document.getElementsByName("settingEnroll");
     }
 
     initEvent()
@@ -19,9 +21,11 @@ class settingJs
         this.sSE.onchange = () => { 
             this.setting();
         };
-
+        this.switch.onchange =() =>{
+            
+        }
         for(var i = 0; i < this.sE.length; i++){
-            this.sE[i].onclick = () => { 
+            this.sE[i].onclick = () => {
                 this.settingHis();
             };
         }
@@ -29,14 +33,15 @@ class settingJs
 
     getSettingOption(){
         
-        chrome.storage.sync.get(['searchEngene'], function(result) {
-            let type = result.searchEngene;
+        chrome.storage.sync.get(['searchEngene'], function(data) {
+            let type = data.searchEngene;
             if(type != undefined){
                 $("#settingSearchEngene").val(type).prop("selected",true);
             }
         });
         
         chrome.storage.sync.get(['logRecord'], function(data) {
+            self.his = data.logRecord;
             let his = data.logRecord;
             if(his != undefined){
                 $(":radio[name='settingEnroll'][value='"+his+"']").attr('checked',his);
@@ -47,10 +52,10 @@ class settingJs
 
     setting()
     {
-        let searchType = $("#settingSearchEngene").val();
-        let searchType2 = $("#settingSearchEngene > option:selected").attr("value2");
-        let searchName = $("#settingSearchEngene > option:selected").attr("value3");
-        chrome.storage.sync.set({"searchEngene":searchType, "searchUrl":searchType2, "searchName":searchName} );
+        let searchEngene  = $("#settingSearchEngene").val();
+        let searchUrl     = $("#settingSearchEngene > option:selected").attr("value2");
+        let searchName    = $("#settingSearchEngene > option:selected").attr("value3");
+        chrome.storage.sync.set({"searchEngene":searchEngene, "searchUrl":searchUrl, "searchName":searchName} );
     }
 
     settingHis()

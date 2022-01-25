@@ -51,18 +51,19 @@ class popupJs
         };
 
         document.getElementById('goOption').onclick = () => {
-            location.href = '../view/options.html';
+            let l = '../view/options.html';
+            chrome.tabs.create({ url: l, active: true });
         };
 
         document.getElementById('searchTxt').onkeyup = (e) => {
             if(e.keyCode == 13){
-                let engeneType = chrome.storage.sync.get(function(data){
-                    if(data.searchEngene == undefined){
+                chrome.storage.sync.get(function(data){
+                    if(data.searchEngene == 'Y' ){
+                        self.url = (self.searchTxt.value === '') ? `${data.searchEngene}` : `${data.searchUrl}${self.searchTxt.value}`;
+                        self.searchType = data.searchName;
+                    }else{
                         self.url = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
                         self.searchType = "google";
-                    }else{
-                        self.url = (self.searchTxt.value === '') ? data.searchEngene : data.searchUrl + `${self.searchTxt.value}`;
-                        self.searchType = data.searchName;
                     }
                     self.search();
                 });
