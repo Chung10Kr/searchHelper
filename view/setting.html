@@ -1,9 +1,13 @@
 <div class="content">
-  <table>
+  <table class="W100p settingArea">
+    <colgroup>
+      <col style="width:60%;"/>
+      <col style="width:auto;"/>
+    </colgroup>
     <tbody>
       <tr>
-        <td>검색기록 저장</td>
-        <td> 
+        <td class="tl">Save search history</td>
+        <td class="tr">
           <div class="wrapper">
             <input type="checkbox" id="switch" >
             <label for="switch" class="switch_label">
@@ -12,12 +16,12 @@
           </div>
         </td>
       </tr>
-      <tr>
-        <td>
-          기본 검색엔진 설정
+      <tr class="PdT7">
+        <td class="tl">
+          Settings Default search engine 
         </td>
-        <td>
-          <select id="defaultEngene">
+        <td class="tr">
+          <select id="defaultEngene" class="select">
             <option value="https://google.com"       data-url="https://www.google.com/search?q="               data-type="google" >google </option>
             <option value="https://www.naver.com"    data-url="https://search.naver.com/search.naver?query="   data-type="naver"  >naver  </option>
             <option value="https://search.yahoo.com" data-url="https://search.yahoo.com/search?p="             data-type="yahoo"  >yahoo  </option>
