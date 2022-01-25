@@ -12,6 +12,7 @@ class popupJs
         this.searchTxt = document.getElementById("searchTxt");
         this.searchBtn = document.getElementById("searchBtn");
         this.searchTxt.focus();
+        this.getSetting();
     }
     initEvent()
     {
@@ -57,35 +58,48 @@ class popupJs
 
         document.getElementById('searchTxt').onkeyup = (e) => {
             if(e.keyCode == 13){
-                chrome.storage.sync.get(function(data){
-                    if(data.searchEngene == 'Y' ){
-                        self.url = (self.searchTxt.value === '') ? `${data.searchEngene}` : `${data.searchUrl}${self.searchTxt.value}`;
-                        self.searchType = data.searchName;
-                    }else{
-                        self.url = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
-                        self.searchType = "google";
-                    }
-                    self.search();
-                });
+
+                if(!self.defaultEngene){
+                    self.url = (self.searchTxt.value === '') ? 'https://google.com' : `https://www.google.com/search?q=${self.searchTxt.value}`;
+                    self.searchType = "google";
+                }else{
+                    self.url = (self.searchTxt.value === '') ? `${self.defaultEngene}` : `${self.defaultUrl}${self.searchTxt.value}`;
+                    self.searchType = self.defaultType;
+                }
+                self.search();
+
             };
         };
     }
 
+    async getSetting()
+    {
+        let self = this;
+
+        let logStore = await chrome.storage.sync.get("logStore");
+        this.logStore = JSON.stringify(logStore) == "{}" ? true : logStore['logStore'];
+        
+        
+        let defaultEngene = await chrome.storage.sync.get("defaultEngene");
+        this.defaultEngene = JSON.stringify(defaultEngene) == "{}" ? "" : defaultEngene['defaultEngene'];
+
+        let defaultUrl = await chrome.storage.sync.get("defaultUrl");
+        this.defaultUrl = JSON.stringify(defaultUrl) == "{}" ? "" : defaultUrl['defaultUrl'];
+
+        let defaultType = await chrome.storage.sync.get("defaultType");
+        this.defaultType = JSON.stringify(defaultType) == "{}" ? "" : defaultType['defaultType'];
+    }
+
     async log()
     {
-        let l = this.url;
-        let txt= this.searchTxt.value;
-        let searchType= this.searchType;
-        let create_date = this.now();
         let history = await chrome.storage.sync.get("history");
         
         let tmpArr = JSON.stringify(history) == "{}" ? [] : history['history'];
-
         let tmpObj = {
-            "url" : l,
-            "txt" : txt,
-            "searchType" : searchType,
-            "create_date" : create_date
+            "url" : this.url,
+            "txt" : this.searchTxt.value,
+            "searchType" : this.searchType,
+            "create_date" : this.now()
         };
         tmpArr.push(tmpObj);
         if(tmpArr.length > this.maxHistory) tmpArr.shift();
@@ -96,11 +110,7 @@ class popupJs
     async search()
     {   
         let l = this.url;
-        let logchk = await chrome.storage.sync.get("logRecord");
-        let chk = JSON.stringify(logchk) == "{}" ? [] : logchk['logRecord'];
-        if(chk != ""){
-            await this.log();    
-        }
+        if( this.logStore ) await this.log();
         chrome.tabs.create({ url: l, active: true });
     }
 

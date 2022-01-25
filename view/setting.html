@@ -1,25 +1,39 @@
 <div class="content">
-  <div>
-    <select id="settingSearchEngene">
-      <option value="https://google.com"       value2="https://www.google.com/search?q="               value3="google" >google </option>
-      <option value="https://www.naver.com"    value2="https://search.naver.com/search.naver?query="   value3="naver"  >naver  </option>
-      <option value="https://search.yahoo.com" value2="https://search.yahoo.com/search?p="             value3="yahoo"  >yahoo  </option>
-      <option value="https://www.youtube.com"  value2="https://www.youtube.com//results?search_query=" value3="youtube">youtube</option>
-      <option value="https://github.com"       value2="https://github.com/search?q="                   value3="github" >github </option>
-      <option value="https://www.daum.com"     value2="https://search.daum.net/search?w=tot&q="        value3="daum"   >daum   </option>
-    </select>
-  </div>
+  <table class="W100p settingArea">
+    <colgroup>
+      <col style="width:60%;"/>
+      <col style="width:auto;"/>
+    </colgroup>
+    <tbody>
+      <tr>
+        <td class="tl">Save search history</td>
+        <td class="tr">
+          <div class="wrapper">
+            <input type="checkbox" id="switch" >
+            <label for="switch" class="switch_label">
+              <span class="onf_btn"></span>
+            </label>
+          </div>
+        </td>
+      </tr>
+      <tr class="PdT7">
+        <td class="tl">
+          Settings Default search engine 
+        </td>
+        <td class="tr">
+          <select id="defaultEngene" class="select">
+            <option value="https://google.com"       data-url="https://www.google.com/search?q="               data-type="google" >google </option>
+            <option value="https://www.naver.com"    data-url="https://search.naver.com/search.naver?query="   data-type="naver"  >naver  </option>
+            <option value="https://search.yahoo.com" data-url="https://search.yahoo.com/search?p="             data-type="yahoo"  >yahoo  </option>
+            <option value="https://www.youtube.com"  data-url="https://www.youtube.com//results?search_query=" data-type="youtube">youtube</option>
+            <option value="https://github.com"       data-url="https://github.com/search?q="                   data-type="github" >github </option>
+            <option value="https://www.daum.com"     data-url="https://search.daum.net/search?w=tot&q="        data-type="daum"   >daum   </option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div class="radio-toolbar">
-    <input type="radio" id="hisSettingY" class="hisSetting" name="settingEnroll"  value="Y" /><label for="hisSettingY">이력 남기기</label>
-    <input type="radio" id="hisSettingN" class="hisSetting" name="settingEnroll"  value="N" /> <label for="hisSettingN">이력 안남기기</label>
-  </div>
 
-  <div class="wrapper">
-    <input type="checkbox" id="switch" value="11">
-    <label for="switch" class="switch_label">
-      <span class="onf_btn"></span>
-    </label>
-  </div>
 
 </div>
