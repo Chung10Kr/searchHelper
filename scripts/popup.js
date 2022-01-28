@@ -77,9 +77,8 @@ class popupJs
         let self = this;
 
         let logStore = await chrome.storage.sync.get("logStore");
-        this.logStore = JSON.stringify(logStore) == "{}" ? true : logStore['logStore'];
-        
-        
+        this.logStore = JSON.stringify(logStore) == "{}" ? false : logStore['logStore'];
+
         let defaultEngene = await chrome.storage.sync.get("defaultEngene");
         this.defaultEngene = JSON.stringify(defaultEngene) == "{}" ? "" : defaultEngene['defaultEngene'];
 
